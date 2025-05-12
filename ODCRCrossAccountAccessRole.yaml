@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Creates an IAM role in all organization accounts to allow the payer account to access ODCR details.
+
+Parameters:
+  PayerAccountID:
+    Type: String
+    Description: "Enter the AWS Account ID of the Payer Account"
+
+  CrossAccountRoleName:
+    Type: String
+    Default: 'CrossAccountODCRAccessRole'
+    Description: 'Name of the IAM role to assume in other accounts for ODCR access'
+
+
+
+Resources:
+  ODCRAccessRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Ref CrossAccountRoleName
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub "arn:aws:iam::${PayerAccountID}:root"
+            Action: "sts:AssumeRole"
+      Policies:
+        - PolicyName: ODCRAccessPermissions
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "ec2:DescribeCapacityReservations"
+                  - "ec2:DescribeAvailabilityZones"
+                Resource: "*"
+
+Outputs:
+  RoleArn:
+    Description: ARN of the created IAM role
+    Value: !GetAtt ODCRAccessRole.Arn
