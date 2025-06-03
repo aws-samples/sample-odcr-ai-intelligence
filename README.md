@@ -20,9 +20,9 @@ This solution addresses two specific use cases:
 2. The team needs to expand the capacity of their existing ODCR.
 
 The system consists of three essential components:
-- ODCRSupervisorAgent: Functions as the main coordinator, handling user inquiries and managing requests to specialized subordinate agents.
-- CapacityPlanningAgent: Reviews existing ODCRs throughout the organization, recommending SPLIT and MOVE operations to optimize capacity allocation for new projects.
-- AugmentationAgent: Identifies opportunities to increase existing ODCR capacity by recommending MOVE operations from other organizational ODCRs.
+- **ODCRSupervisorAgent:** Functions as the main coordinator, handling user inquiries and managing requests to specialized subordinate agents.
+- **CapacityPlanningAgent:** Reviews existing ODCRs throughout the organization, recommending SPLIT and MOVE operations to optimize capacity allocation for new projects.
+- **AugmentationAgent:** Identifies opportunities to increase existing ODCR capacity by recommending MOVE operations from other organizational ODCRs.
 
 The following figure shows the high-level architecture for this solution.
 
@@ -40,7 +40,9 @@ At the heart of this system is an Amazon Bedrock Agent powered by [Action Groups
 
 **find_eligible_odcrs_for_move Lambda function:** This Lambda function assists the Augmentation Agent by finding all capacity reservations within the same account as the specified ODCR. It uses Resource Explorer to discover ODCRs and, when necessary, assumes cross-account roles to gather ODCR information. The function filters ODCRs based on matching instance type, tenancy, and AZ, then returns a formatted list of eligible ODCRs that can provide more capacity through MOVE operations.
 
-Each Lambda function receives structured inputs from the Amazon Bedrock Agent, executes its designated task, and returns structured responses. Then, these responses are used by the agent to generate intelligent, actionable answers to user queries. Together, these Lambda functions extend the capabilities of the Amazon Bedrock Agent by integrating with external data sources and automating complex ODCR management logic—allowing the system to deliver accurate, dynamic recommendations.
+Each Lambda function receives structured inputs from the Amazon Bedrock Agent, executes its designated task, and returns structured responses. Then, these responses are used by the agent to generate intelligent, actionable answers to user queries. 
+
+Together, these Lambda functions extend the capabilities of the Amazon Bedrock Agent by integrating with external data sources and automating complex ODCR management logic—allowing the system to deliver accurate, dynamic recommendations.
 
 ## Prerequisites 
 
