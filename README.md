@@ -12,7 +12,7 @@ In this post, we demonstrate how [Amazon Bedrock Agents](https://aws.amazon.com/
 
 This approach allows IT leaders, cloud architects, and finance teams to optimize reservations, control costs, and enhance overall resource management—without the complexity of traditional analysis methods.
 
-## Solution overvie
+## Solution overview
 
 This solution addresses two specific use cases:
 
